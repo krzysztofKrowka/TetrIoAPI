@@ -1,9 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TetrAPI;
-using TetrAPI.Models;
+using static TetrIoAPI.Models.News;
+using static TetrIoAPI.Models.LeagueLeaderboard;
+using static TetrIoAPI.Models.XpLeaderboard;
+using static TetrIoAPI.Models.UserInfo;
+using static TetrIoAPI.Models.UserRecords;
+using static TetrIoAPI.Models.UserSearch;
+using static TetrIoAPI.Models.ServerActivity;
+using static TetrIoAPI.Models.ServerStatistic;
+using TetrIoAPI.Models;
 
-namespace FootballApi.Controllers
+namespace TetrIoAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -28,7 +35,9 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/general/stats");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+           // return Ok(responseBody);
+            ServerStatistic.Root usersResponseBody = JsonConvert.DeserializeObject<ServerStatistic.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -38,7 +47,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/general/activity");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+            ServerActivity.Root usersResponseBody = JsonConvert.DeserializeObject<ServerActivity.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
         
@@ -47,9 +57,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/users/{user}");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
-            //Root userResponseBody = JsonConvert.DeserializeObject<Root>(responseBody);
-            //return Ok(userResponseBody);
+            UserInfo.Root usersResponseBody = JsonConvert.DeserializeObject<UserInfo.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -59,7 +68,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/users/{user}/records");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+            UserRecords.Root usersResponseBody = JsonConvert.DeserializeObject<UserRecords.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -69,7 +79,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/users/search/{query}");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+            UserSearch.Root usersResponseBody = JsonConvert.DeserializeObject<UserSearch.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -79,9 +90,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/users/lists/league");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
-            //List<Root> usersResponseBody = JsonConvert.DeserializeObject<List<Root>>(responseBody);
-            //return Ok(usersResponseBody);
+            LeagueLeaderboard.Root usersResponseBody = JsonConvert.DeserializeObject<LeagueLeaderboard.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -90,7 +100,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/users/lists/league/all");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+            LeagueLeaderboard.Root usersResponseBody = JsonConvert.DeserializeObject<LeagueLeaderboard.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -99,7 +110,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/users/lists/xp");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+            XpLeaderboard.Root usersResponseBody = JsonConvert.DeserializeObject<XpLeaderboard.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
 
@@ -108,7 +120,8 @@ namespace FootballApi.Controllers
         {
             HttpResponseMessage response = await client.GetAsync($"{link}/news");
             string responseBody = await response.Content.ReadAsStringAsync();
-            return Ok(responseBody);
+            News.Root usersResponseBody = JsonConvert.DeserializeObject<News.Root>(responseBody);
+            return Ok(usersResponseBody);
         }
 
     }

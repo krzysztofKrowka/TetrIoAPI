@@ -1,9 +1,9 @@
-﻿namespace TetrAPI.Models
+﻿namespace TetrIoAPI.Models
 {
     public class Cache
     {
-        public string? status { get; set; }
-        public long? cached_at { get; set; }
-        public long?  cached_until { get; set; }
+        public string status { get; set; }
+        public double cached_at { get; set; }
+        public double cached_until { get; set; }
     }
 }
