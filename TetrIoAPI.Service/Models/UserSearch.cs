@@ -1,18 +1,15 @@
-﻿namespace TetrIoAPI.Models
+﻿namespace TetrIoAPI.Service.Models
 {
-    public class News
+    public class UserSearch
     {
         public class Data
         {
-            public List<NewsItem> news { get; set; }
+            public User? user { get; set; }
         }
-        public class NewsItem
+        public class User
         {
             public string _id { get; set; }
-            public string stream { get; set; }
-            public string type { get; set; }
-            public object data { get; set; }
-            public string ts { get; set; }
+            public string username { get; set; }
         }
         public class Root
         {
@@ -21,6 +18,5 @@
             public Data? data { get; set; }
             public Cache? cache { get; set; }
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace TetrIoAPI.Models
+﻿namespace TetrIoAPI.Service.Models
 {
     public class Cache
     {

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 
-namespace TetrIoAPI.Models
+namespace TetrIoAPI.Service.Models
 {
     public class UserRecords
     {
