@@ -4,7 +4,7 @@
     {
         public class Data
         {
-            public User users { get; set; }
+            public List<User> users { get; set; }
         }
         public class User
         {
