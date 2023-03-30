@@ -37,11 +37,7 @@ namespace TetrIoAPI.Service.DTOs
             public Blitz Blitz { get; set; }
         }
 
-        public class Root
-        {
-            public string? Error { get; set; }
-            public Data? Data { get; set; }
-        }
+
 
     }
 }

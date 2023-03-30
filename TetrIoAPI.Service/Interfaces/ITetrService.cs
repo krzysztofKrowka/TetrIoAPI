@@ -10,13 +10,13 @@ namespace TetrIoAPI.Service.Interfaces
 
     public interface ITetrService
     {
-        Task<ServerActivityDTO.Root> GetActivity();
-        Task<LeagueLeaderboardDTO.Root> GetLeagueLeaderboard();
-        Task<NewsDTO.Root> GetNews();
-        Task<ServerStatisticDTO.Root> GetStats();
-        Task<UserInfoDTO.Root> GetUser(string user);
-        Task<UserSearchDTO.Root> GetUserByDiscord(string query);
-        Task<UserRecordsDTO.Root> GetUserRecords(string user);
-        Task<XpLeaderboardDTO.Root> GetXpLeaderboard();
+        Task<ServerActivityDTO.Data> GetActivity();
+        Task<LeagueLeaderboardDTO.Data> GetLeagueLeaderboard(int pageNumber,int pageSize);
+        Task<NewsDTO.Data> GetNews(int pageNumber, int pageSize);
+        Task<ServerStatisticDTO.Data> GetStats();
+        Task<UserInfoDTO.Data> GetUser(string user);
+        Task<UserSearchDTO.Data> GetUserByDiscord(string query);
+        Task<UserRecordsDTO.Data> GetUserRecords(string user);
+        Task<XpLeaderboardDTO.Data> GetXpLeaderboard(int pageNumber, int pageSize);
     }
 }

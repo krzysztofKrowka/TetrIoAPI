@@ -5,10 +5,9 @@ namespace TetrIoAPI.Service.DTOs
     public class UserSearchDTO
     {
 
-        public class Root
+        public class Data
         {
-            public string? Error { get; set; }
-            public UserSearch.Data? Data { get; set; }
+            public UserSearch.Data? User { get; set; }
         }
     }
 }

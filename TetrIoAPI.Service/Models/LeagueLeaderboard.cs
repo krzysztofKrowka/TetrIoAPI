@@ -4,7 +4,7 @@
     {
         public class Data
         {
-            public List<User> users { get; set;  }
+            public IEnumerable<User> users { get; set;  }
         }
         public class User
         {

@@ -69,26 +69,26 @@ namespace TetrIoAPI.Core.Controllers
 
 
         [HttpGet("/users/lists/league")]
-        public async Task<ActionResult> GetLeagueLeaderboard()
+        public async Task<ActionResult> GetLeagueLeaderboard(int pageNumber, int pageSize)
         {
-            var usersResponseBody = await _service.GetLeagueLeaderboard();
+            var usersResponseBody = await _service.GetLeagueLeaderboard(pageNumber,pageSize);
             return Ok(usersResponseBody);
         }
 
 
 
         [HttpGet("/users/lists/xp")]
-        public async Task<ActionResult> GetXpLeaderboard()
+        public async Task<ActionResult> GetXpLeaderboard(int pageNumber, int pageSize)
         {
-            var usersResponseBody = await _service.GetXpLeaderboard();
+            var usersResponseBody = await _service.GetXpLeaderboard(pageNumber, pageSize);
             return Ok(usersResponseBody);
         }
 
 
         [HttpGet("/news")]
-        public async Task<ActionResult> GetNews()
+        public async Task<ActionResult> GetNews(int pageNumber, int pageSize)
         {
-            var newsResponseBody = await _service.GetNews();
+            var newsResponseBody = await _service.GetNews( pageNumber, pageSize);
             return Ok(newsResponseBody);
         }
 

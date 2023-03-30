@@ -4,7 +4,7 @@
     {
         public class Data
         {
-            public List<NewsItem> news { get; set; }
+            public IEnumerable<NewsItem> news { get; set; }
         }
         public class NewsItem
         {

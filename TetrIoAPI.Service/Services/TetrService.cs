@@ -16,58 +16,46 @@ namespace TetrIoAPI.Service.Services
     {
         private HttpClient client = new HttpClient();
         private string link = "https://ch.tetr.io/api";
+        //TODO
+        //  Make leaderboards have input for how many users to get
 
 
 
-
-        public async Task<ServerStatisticDTO.Root> GetStats()
+        public async Task<ServerStatisticDTO.Data> GetStats()
         {
             var response = await client.GetAsync($"{link}/general/stats");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<ServerStatistic.Root>(responseBody);
-            var statsDTO = new ServerStatisticDTO.Root()
+            var statsDTO = new ServerStatisticDTO.Data()
             {
-                Data = new ServerStatisticDTO.Data()
-                {
                     UserCount = u.data.usercount,
                     AnonCount = u.data.anoncount,
                     RankedCount = u.data.rankedcount,
                     GamesPlayed = u.data.gamesplayed,
                     GamesFinished = u.data.gamesfinished
-                },
             };
             return statsDTO;
         }
 
-
-
-
-        public async Task<ServerActivityDTO.Root> GetActivity()
+        public async Task<ServerActivityDTO.Data> GetActivity()
         {
             var response = await client.GetAsync($"{link}/general/activity");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<ServerActivity.Root>(responseBody);
-            var activityDTO = new ServerActivityDTO.Root()
+            var activityDTO = new ServerActivityDTO.Data()
             {
-                Data = new ServerActivityDTO.Data()
-                {
-                    Activity = u.data.activity,
-                },
-                Error = u.error
+                 Activity = u.data.activity,
             };
             return activityDTO;
         }
 
-
-        public async Task<UserInfoDTO.Root> GetUser(string user)
+        public async Task<UserInfoDTO.Data> GetUser(string user)
         {
             var response = await client.GetAsync($"{link}/users/{user}");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<UserInfo.Root>(responseBody);
-            var userDTO = new UserInfoDTO.Root()
+            var userDTO = new UserInfoDTO.Data()
             {
-                Data = new UserInfoDTO.Data()
-                {
                     User = new UserInfoDTO.User()
                     {
                         _Id = u.data.user._id,
@@ -109,41 +97,33 @@ namespace TetrIoAPI.Service.Services
                         Bio = u.data.user.bio,
                         FriendCount = u.data.user.friend_count,
                     }
-                },
-                Error = u.error
             };
             return userDTO;
         }
 
-
-
-        public async Task<UserRecordsDTO.Root> GetUserRecords(string user)
+        public async Task<UserRecordsDTO.Data> GetUserRecords(string user)
         {
             var response = await client.GetAsync($"{link}/users/{user}/records");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<UserRecords.Root>(responseBody);
-            var userDTO = new UserRecordsDTO.Root()
+            var userDTO = new UserRecordsDTO.Data()
             {
-                Error = u.error,
-                Data = new UserRecordsDTO.Data()
-                {
                     Zen = u.data.zen,
                     Records = new UserRecordsDTO.Records()
                     {
                         _40l = new UserRecordsDTO._40l(),
                         Blitz = new UserRecordsDTO.Blitz()
                     }
-                }
             };
             if(u.data.records._40l !=null)
             {
-                userDTO.Data.Records._40l = new UserRecordsDTO._40l()
+                userDTO.Records._40l = new UserRecordsDTO._40l()
                 {
                     Rank = u.data.records._40l.rank,
                 };
                 if(u.data.records._40l.record != null)
                 {
-                    userDTO.Data.Records._40l.Record = new UserRecordsDTO.Record()
+                    userDTO.Records._40l.Record = new UserRecordsDTO.Record()
                     {
                         _Id = u.data.records._40l.record._id,
                         Stream = u.data.records._40l.record.stream,
@@ -156,13 +136,13 @@ namespace TetrIoAPI.Service.Services
             }
             if(u.data.records.blitz != null)
             {
-                userDTO.Data.Records.Blitz = new UserRecordsDTO.Blitz()
+                userDTO.Records.Blitz = new UserRecordsDTO.Blitz()
                 {
                     Rank = u.data.records.blitz.rank
                 };
                 if (u.data.records.blitz.record != null)
                 {
-                    userDTO.Data.Records.Blitz.Record = new UserRecordsDTO.Record()
+                    userDTO.Records.Blitz.Record = new UserRecordsDTO.Record()
                     {
                         _Id = u.data.records.blitz.record._id,
                         Stream = u.data.records.blitz.record.stream,
@@ -175,61 +155,54 @@ namespace TetrIoAPI.Service.Services
             return userDTO;
         }
 
-
-
-        public async Task<UserSearchDTO.Root> GetUserByDiscord(string query)
+        public async Task<UserSearchDTO.Data> GetUserByDiscord(string query)
         {
             var response = await client.GetAsync($"{link}/users/search/{query}");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<UserSearch.Root>(responseBody);
-            var userDTO = new UserSearchDTO.Root()
+            var userDTO = new UserSearchDTO.Data()
             {
-                Error = u.error,
-                Data = u.data
+                User = u.data
             };
             return userDTO;
         }
 
-
-
-        public async Task<LeagueLeaderboardDTO.Root> GetLeagueLeaderboard()
+        public async Task<LeagueLeaderboardDTO.Data> GetLeagueLeaderboard(int pageNumber, int pageSize)
         {
-            var response = await client.GetAsync($"{link}/users/lists/league");
+            var response = await client.GetAsync($"{link}/users/lists/league?limit=100");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<LeagueLeaderboard.Root>(responseBody);
-            var leagueDTO = new LeagueLeaderboardDTO.Root()
+            var leagueDTO = new LeagueLeaderboardDTO.Data()
             { 
-                Error = u.error,
-                Data = u.data
+                Leaderboard = u.data
             };
+            leagueDTO.Leaderboard.users= leagueDTO.Leaderboard.users.Skip((pageNumber-1)*pageSize).Take(pageSize);
             return leagueDTO;
         }
 
-
-        public async Task<XpLeaderboardDTO.Root> GetXpLeaderboard()
+        public async Task<XpLeaderboardDTO.Data> GetXpLeaderboard(int pageNumber, int pageSize)
         {
-            var response = await client.GetAsync($"{link}/users/lists/xp");
+            var response = await client.GetAsync($"{link}/users/lists/xp?limit=100");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<XpLeaderboard.Root>(responseBody);
-            var xpDTO = new XpLeaderboardDTO.Root() 
+            var xpDTO = new XpLeaderboardDTO.Data() 
             {
-                Error = u.error,
-                Data = u.data
+                Leaderboard = u.data
             };
+            xpDTO.Leaderboard.users = xpDTO.Leaderboard.users.Skip((pageNumber - 1) * pageSize).Take(pageSize);
             return xpDTO;
         }
 
-
-        public async Task<NewsDTO.Root> GetNews()
+        public async Task<NewsDTO.Data> GetNews(int pageNumber, int pageSize)
         {
-            var response = await client.GetAsync($"{link}/news");
+            var response = await client.GetAsync($"{link}/news?limit=100");
             var responseBody = await response.Content.ReadAsStringAsync();
             var u = JsonConvert.DeserializeObject<News.Root>(responseBody);
-            var newsDTO = new NewsDTO.Root() 
+            var newsDTO = new NewsDTO.Data() 
             { 
-                Error = u.error,
-                Data = u.data
+                News = u.data.news
             };
+            newsDTO.News = newsDTO.News.Skip((pageNumber - 1) * pageSize).Take(pageSize);
             return newsDTO;
         }
 

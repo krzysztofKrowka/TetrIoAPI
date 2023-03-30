@@ -12,10 +12,5 @@
             public double GamesFinished { get; set; }
         }
 
-        public class Root
-        {
-            public Data Data { get; set; }
-        }
-      
     }
 }

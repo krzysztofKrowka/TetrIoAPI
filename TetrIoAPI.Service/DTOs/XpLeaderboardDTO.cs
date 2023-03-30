@@ -5,10 +5,9 @@ namespace TetrIoAPI.Service.DTOs
     public class XpLeaderboardDTO
     {
   
-        public class Root
+        public class Data
         {
-            public string? Error { get; set; }
-            public XpLeaderboard.Data? Data { get; set; }
+            public XpLeaderboard.Data? Leaderboard { get; set; }
         }
     }
 }

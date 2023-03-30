@@ -5,10 +5,9 @@ namespace TetrIoAPI.Service.DTOs
     public class LeagueLeaderboardDTO
     {
 
-        public class Root
+        public class Data
         {
-            public string? Error { get; set; }
-            public LeagueLeaderboard.Data? Data { get; set; }
+            public LeagueLeaderboard.Data? Leaderboard { get; set; }
         }
     }
 }

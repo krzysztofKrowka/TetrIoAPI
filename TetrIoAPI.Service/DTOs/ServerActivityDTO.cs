@@ -7,10 +7,5 @@
             public List<double> Activity { get; set; }
         }
 
-        public class Root
-        {
-            public string? Error { get; set; }
-            public Data? Data { get; set; }
-        }
     }
 }
